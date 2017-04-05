@@ -3,13 +3,17 @@
 plot(cars)
 ```
 
+
+
 ```
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
 
 When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
 
-```{r} 
+```{r}
+
+<!--begin.rcode
 train=read.csv('HousePricesTrain.csv')
 test=read.csv('HousePricesTest.csv')
 library(ggplot2)
@@ -23,41 +27,44 @@ install.packages('moments')
 library(moments)
 install.packages('lars')
 library(lars)
-```{r}
+end.rcode-->
+
+<!--begin.rcode
 summary(train)
+end.rcode-->
 ```
 ```{r}
-attach(train)
-ggplot(train,aes(x=GrLivArea,y=SalePrice))+geom_point()
+<attach(train)
+ggplot(train,aes(x=GrLivArea,y=SalePrice))+geom_point()>
 ```
 ```{r}
-train=train[train$GrLivArea<=4000,]
+<train=train[train$GrLivArea<=4000,]
 sum(is.na(train))
 missing_rows = sapply(train,function(x)sum(is.na(x)))
 missing_rows
 missing_summary=data.frame(index=names(train),missing_values=missing_rows)
 missing_summary
-missing_summary=missing_summary[missing_summary$missing_values>0,]
+missing_summary=missing_summary[missing_summary$missing_values>0,]>
 ```
 
 ```{r}
-test$SalePrice=NA
+<test$SalePrice=NA
 train$istrain=1
 test$istrain=0
-combined=rbind(train,test)
+combined=rbind(train,test)>
 
 
 # Changing NA in GarageQual to None
-combined$GarageQual1 <- as.character(combined$GarageQual)
+<combined$GarageQual1 <- as.character(combined$GarageQual)
 combined$GarageQual1[which(is.na(combined$GarageQual))] <- "None"
 combined$GarageQual <- as.factor(combined$GarageQual1)
-combined <- subset(combined,select = -GarageQual1)
+combined <- subset(combined,select = -GarageQual1)>
 
 # Changing NA in GarageCond to None
-combined$GarageCond1 <- as.character(combined$GarageCond)
+<combined$GarageCond1 <- as.character(combined$GarageCond)
 combined$GarageCond1[which(is.na(combined$GarageCond))] <- "None"
 combined$GarageCond <- as.factor(combined$GarageCond1)
-combined <- subset(combined,select = -GarageCond1)
+combined <- subset(combined,select = -GarageCond1)>
 
 # Changing NA in BsmtQual to None
 combined$BsmtQual1 <- as.character(combined$BsmtQual)
